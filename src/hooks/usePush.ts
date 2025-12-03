@@ -13,6 +13,12 @@ export function usePush() {
     setStatus("subscribing");
     setError(null);
     try {
+      if (!VAPID_PUBLIC_KEY) {
+        throw new Error("Falta VITE_VAPID_PUBLIC_KEY en el MF.");
+      }
+      if (!apiBase) {
+        throw new Error("Falta VITE_API_MOCK_URL apuntando al mock HTTPS.");
+      }
       if (!("Notification" in window) || !("serviceWorker" in navigator)) {
         throw new Error("Push no soportado en este navegador.");
       }
@@ -25,7 +31,6 @@ export function usePush() {
         setStatus("subscribed");
         return;
       }
-      if (!VAPID_PUBLIC_KEY) throw new Error("Falta VITE_VAPID_PUBLIC_KEY en el MF.");
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
@@ -36,7 +41,10 @@ export function usePush() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(sub),
       });
-      if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`API ${res.status}: ${text || res.statusText}`);
+      }
       setStatus("subscribed");
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
@@ -46,12 +54,16 @@ export function usePush() {
   };
 
   const sendPush = async (body: string, delaySeconds = 0, target = "agente") => {
+    if (!apiBase) throw new Error("Falta VITE_API_MOCK_URL en MF Notificaciones");
     const res = await fetch(`${apiBase}/push/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ body, target, delaySeconds }),
     });
-    if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`API ${res.status}: ${text || res.statusText}`);
+    }
     return true;
   };
 
