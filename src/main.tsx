@@ -1,3 +1,4 @@
+// Bootstrap del MF Notificaciones: monta React y estilos base.
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";

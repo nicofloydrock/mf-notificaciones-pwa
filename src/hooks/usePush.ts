@@ -4,6 +4,7 @@ import { urlBase64ToUint8Array } from "../utils/base64";
 
 type PushState = "idle" | "subscribing" | "subscribed" | "error";
 
+// Hook para suscribirse y enviar push via mock API (VAPID).
 export function usePush() {
   const [status, setStatus] = useState<PushState>("idle");
   const [error, setError] = useState<string | null>(null);

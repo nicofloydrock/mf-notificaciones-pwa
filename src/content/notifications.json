@@ -1,0 +1,41 @@
+{
+  "app": {
+    "invalidConfig": "Config no recibida o token inválido.",
+    "anonymousUser": "Operador"
+  },
+  "header": {
+    "microfrontLabel": "Microfront Notificaciones",
+    "title": "Pruebas Web Push",
+    "sessionLabel": "Sesión",
+    "tokenLabel": "Token válido",
+    "remoteLabel": "remote",
+    "moduleLabel": "expose"
+  },
+  "subscribe": {
+    "subtitle": "Suscripción",
+    "title": "Suscribirse a Push (VAPID)",
+    "description": "Requiere HTTPS, permisos de notificación y VAPID_PUBLIC_KEY.",
+    "cta": {
+      "idle": "Suscribirse",
+      "subscribing": "Suscribiendo...",
+      "subscribed": "Suscrito"
+    },
+    "errorPrefix": "Error"
+  },
+  "send": {
+    "subtitle": "Envío de prueba",
+    "title": "Enviar push (delay opcional)",
+    "delayLabel": "Delay (s):",
+    "sendNow": "Enviar ahora (agente)",
+    "sendLater": "Enviar en",
+    "targetHint": "Usa target=agente para abrir el shell en esa pestaña al tocar la notificación."
+  },
+  "tester": {
+    "title": "Config de prueba",
+    "description": "Pega un objeto JSON con token/usuario para probar en modo standalone.",
+    "placeholder": "{\n  \"token\": \"NICORIVERA\",\n  \"user\": { \"id\": \"operator-1\", \"name\": \"Operador Demo\" }\n}",
+    "applyCta": "Usar config",
+    "demoCta": "Cargar demo",
+    "errorInvalid": "JSON inválido, revisa el formato."
+  }
+}
